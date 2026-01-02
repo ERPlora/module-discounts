@@ -20,7 +20,7 @@ MODULE_INDUSTRIES = [
     "restaurant",# Restaurants
     "bar",       # Bars & pubs
     "cafe",      # Cafes & bakeries
-    "salon",     # Beauty & wellness
+    "beauty",    # Beauty & wellness
     "ecommerce", # E-commerce
 ]
 
