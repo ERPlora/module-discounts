@@ -1,0 +1,120 @@
+{% load i18n djicons %}
+
+<div class="p-4">
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold">{% trans "Settings" %}</h1>
+        <p class="text-sm mt-2 text-base-content/60">{% trans "Discounts module configuration" %}</p>
+    </div>
+
+    <!-- Overview Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="card">
+            <div class="card-body p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                        {% icon "ticket-outline" css_class="text-2xl text-primary" %}
+                    </div>
+                    <div>
+                        <div class="text-sm text-base-content/60">{% trans "Total Coupons" %}</div>
+                        <div class="text-2xl font-semibold">{{ total_coupons }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-success/10 rounded-xl flex items-center justify-center">
+                        {% icon "checkmark-circle-outline" css_class="text-2xl text-success" %}
+                    </div>
+                    <div>
+                        <div class="text-sm text-base-content/60">{% trans "Active Coupons" %}</div>
+                        <div class="text-2xl font-semibold text-success">{{ active_coupons }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-warning/10 rounded-xl flex items-center justify-center">
+                        {% icon "megaphone-outline" css_class="text-2xl text-warning" %}
+                    </div>
+                    <div>
+                        <div class="text-sm text-base-content/60">{% trans "Total Promotions" %}</div>
+                        <div class="text-2xl font-semibold">{{ total_promotions }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-success/10 rounded-xl flex items-center justify-center">
+                        {% icon "flash-outline" css_class="text-2xl text-success" %}
+                    </div>
+                    <div>
+                        <div class="text-sm text-base-content/60">{% trans "Active Promotions" %}</div>
+                        <div class="text-2xl font-semibold text-success">{{ active_promotions }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">{% trans "Quick Actions" %}</h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="list">
+                <a hx-get="{% url 'discounts:coupon_create' %}"
+                   hx-target="#main-content-area"
+                   hx-push-url="true"
+                   class="list-item list-item-clickable">
+                    <div class="list-item-start">
+                        {% icon "add-circle-outline" css_class="text-xl text-primary" %}
+                    </div>
+                    <div class="list-item-content">
+                        <div class="list-item-label">{% trans "Create New Coupon" %}</div>
+                        <div class="list-item-note">{% trans "Add a new discount coupon code" %}</div>
+                    </div>
+                    <div class="list-item-end">
+                        {% icon "chevron-forward-outline" css_class="text-base-content/60" %}
+                    </div>
+                </a>
+                <a hx-get="{% url 'discounts:promotion_create' %}"
+                   hx-target="#main-content-area"
+                   hx-push-url="true"
+                   class="list-item list-item-clickable">
+                    <div class="list-item-start">
+                        {% icon "add-circle-outline" css_class="text-xl text-warning" %}
+                    </div>
+                    <div class="list-item-content">
+                        <div class="list-item-label">{% trans "Create New Promotion" %}</div>
+                        <div class="list-item-note">{% trans "Add an automatic time-based promotion" %}</div>
+                    </div>
+                    <div class="list-item-end">
+                        {% icon "chevron-forward-outline" css_class="text-base-content/60" %}
+                    </div>
+                </a>
+                <a hx-get="{% url 'discounts:usage_report' %}"
+                   hx-target="#main-content-area"
+                   hx-push-url="true"
+                   class="list-item list-item-clickable">
+                    <div class="list-item-start">
+                        {% icon "analytics-outline" css_class="text-xl text-success" %}
+                    </div>
+                    <div class="list-item-content">
+                        <div class="list-item-label">{% trans "View Usage Report" %}</div>
+                        <div class="list-item-note">{% trans "See discount usage and savings data" %}</div>
+                    </div>
+                    <div class="list-item-end">
+                        {% icon "chevron-forward-outline" css_class="text-base-content/60" %}
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

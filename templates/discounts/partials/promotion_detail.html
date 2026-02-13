@@ -1,0 +1,208 @@
+{% load i18n djicons %}
+
+<div class="p-4" x-data="{ confirmDelete: false }">
+    <!-- Back Button -->
+    <button class="btn btn-ghost btn-sm mb-4"
+        hx-get="{% url 'discounts:promotion_list' %}"
+        hx-target="#main-content-area"
+        hx-push-url="true">
+        {% icon "arrow-back-outline" css_class="mr-1" %}
+        {% trans "Back to Promotions" %}
+    </button>
+
+    <!-- Header Card -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-warning/10 rounded-xl flex items-center justify-center">
+                        {% icon "megaphone-outline" css_class="text-2xl text-warning" %}
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold">{{ promotion.name }}</h2>
+                        <span class="text-base-content/60">{{ promotion.get_scope_display }}</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="badge {% if promotion.status == 'active' %}color-success{% elif promotion.status == 'expired' %}color-error{% elif promotion.status == 'scheduled' %}color-warning{% endif %}">
+                        {{ promotion.status|title }}
+                    </span>
+                    <button class="btn btn-outline btn-sm"
+                        hx-get="{% url 'discounts:promotion_edit' promotion.id %}"
+                        hx-target="#main-content-area"
+                        hx-push-url="true">
+                        {% icon "create-outline" css_class="mr-1" %}
+                        {% trans "Edit" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            {% if promotion.description %}
+            <p class="text-base-content/60 mb-4">{{ promotion.description }}</p>
+            {% endif %}
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="p-3 rounded-lg bg-base-200/50">
+                    <div class="text-xs text-base-content/60 uppercase font-semibold mb-1">{% trans "Discount" %}</div>
+                    <div class="text-lg font-semibold">
+                        {% if promotion.discount_type == 'percentage' %}{{ promotion.discount_value }}%
+                        {% elif promotion.discount_type == 'fixed' %}{{ promotion.discount_value }}
+                        {% else %}{% trans "BOGO" %}{% endif %}
+                    </div>
+                </div>
+                <div class="p-3 rounded-lg bg-base-200/50">
+                    <div class="text-xs text-base-content/60 uppercase font-semibold mb-1">{% trans "Starts" %}</div>
+                    <div class="text-lg font-semibold">{{ promotion.valid_from|date:"d/m/Y" }}</div>
+                </div>
+                <div class="p-3 rounded-lg bg-base-200/50">
+                    <div class="text-xs text-base-content/60 uppercase font-semibold mb-1">{% trans "Ends" %}</div>
+                    <div class="text-lg font-semibold">{{ promotion.valid_until|date:"d/m/Y" }}</div>
+                </div>
+                <div class="p-3 rounded-lg bg-base-200/50">
+                    <div class="text-xs text-base-content/60 uppercase font-semibold mb-1">{% trans "Priority" %}</div>
+                    <div class="text-lg font-semibold">{{ promotion.priority }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">{% trans "Schedule" %}</h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="list">
+                {% if promotion.days_of_week %}
+                <div class="list-item">
+                    <div class="list-item-content">
+                        <div class="list-item-label">{% trans "Days of Week" %}</div>
+                    </div>
+                    <div class="list-item-end text-base-content/60">{{ promotion.days_of_week }}</div>
+                </div>
+                {% endif %}
+                {% if promotion.start_time %}
+                <div class="list-item">
+                    <div class="list-item-content">
+                        <div class="list-item-label">{% trans "Start Time" %}</div>
+                    </div>
+                    <div class="list-item-end text-base-content/60">{{ promotion.start_time|time:"H:i" }}</div>
+                </div>
+                {% endif %}
+                {% if promotion.end_time %}
+                <div class="list-item">
+                    <div class="list-item-content">
+                        <div class="list-item-label">{% trans "End Time" %}</div>
+                    </div>
+                    <div class="list-item-end text-base-content/60">{{ promotion.end_time|time:"H:i" }}</div>
+                </div>
+                {% endif %}
+                <div class="list-item">
+                    <div class="list-item-content">
+                        <div class="list-item-label">{% trans "Stackable" %}</div>
+                    </div>
+                    <div class="list-item-end text-base-content/60">{% if promotion.stackable %}{% trans "Yes" %}{% else %}{% trans "No" %}{% endif %}</div>
+                </div>
+                {% if promotion.min_purchase %}
+                <div class="list-item">
+                    <div class="list-item-content">
+                        <div class="list-item-label">{% trans "Min. Purchase" %}</div>
+                    </div>
+                    <div class="list-item-end text-base-content/60">{{ promotion.min_purchase|floatformat:2 }}</div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Conditions -->
+    {% if conditions %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">{% trans "Conditions" %}</h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="list">
+                {% for condition in conditions %}
+                <div class="list-item">
+                    <div class="list-item-content">
+                        <div class="list-item-label">{{ condition.get_condition_type_display }}</div>
+                        <div class="list-item-note">{{ condition.value }}</div>
+                    </div>
+                    <div class="list-item-end">
+                        <span class="badge badge-sm {% if condition.is_inclusive %}color-success{% else %}color-error{% endif %}">
+                            {% if condition.is_inclusive %}{% trans "Include" %}{% else %}{% trans "Exclude" %}{% endif %}
+                        </span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Recent Usage -->
+    {% if recent_usages %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">{% trans "Recent Usage" %}</h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="list">
+                {% for usage in recent_usages %}
+                <div class="list-item">
+                    <div class="list-item-content">
+                        <div class="list-item-label">
+                            {% if usage.customer %}{{ usage.customer }}{% else %}{% trans "Guest" %}{% endif %}
+                        </div>
+                        <div class="list-item-note">{{ usage.used_at|date:"d/m/Y H:i" }}</div>
+                    </div>
+                    <div class="list-item-end">
+                        <span class="text-success font-semibold">-{{ usage.amount_discounted|floatformat:2 }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Danger Zone -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title text-error">{% trans "Danger Zone" %}</h3>
+        </div>
+        <div class="card-body">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h4 class="font-semibold">{% trans "Delete Promotion" %}</h4>
+                    <p class="text-sm text-base-content/60">{% trans "This action cannot be undone" %}</p>
+                </div>
+
+                <template x-if="!confirmDelete">
+                    <button class="btn btn-outline btn-sm color-error"
+                        @click="confirmDelete = true">
+                        {% icon "trash-outline" css_class="mr-1" %}
+                        {% trans "Delete" %}
+                    </button>
+                </template>
+
+                <template x-if="confirmDelete">
+                    <div class="flex gap-2">
+                        <button type="button" class="btn btn-sm btn-outline"
+                                @click="confirmDelete = false">
+                            {% trans "Cancel" %}
+                        </button>
+                        <button type="button" class="btn btn-sm color-error"
+                                hx-post="{% url 'discounts:promotion_delete' promotion.id %}"
+                                hx-target="#main-content-area">
+                            {% icon "trash-outline" css_class="mr-1" %}
+                            {% trans "Confirm" %}
+                        </button>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+</div>

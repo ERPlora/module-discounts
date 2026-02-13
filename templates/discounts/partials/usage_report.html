@@ -1,0 +1,113 @@
+{% load i18n djicons %}
+
+<div class="p-4">
+    <!-- Page Header -->
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold">{% trans "Usage Report" %}</h1>
+        <p class="text-sm mt-2 text-base-content/60">{% trans "Track discount usage and savings" %}</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="card">
+            <div class="card-body p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                        {% icon "receipt-outline" css_class="text-2xl text-primary" %}
+                    </div>
+                    <div>
+                        <div class="text-sm text-base-content/60">{% trans "Total Uses" %}</div>
+                        <div class="text-2xl font-semibold">{{ total_usages }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-success/10 rounded-xl flex items-center justify-center">
+                        {% icon "cash-outline" css_class="text-2xl text-success" %}
+                    </div>
+                    <div>
+                        <div class="text-sm text-base-content/60">{% trans "Total Savings" %}</div>
+                        <div class="text-2xl font-semibold text-success">{{ total_savings|floatformat:2 }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-sm font-medium mb-1">{% trans "From" %}</label>
+                    <input type="date" name="date_from" value="{{ date_from }}"
+                        class="input w-full"
+                        hx-get="{% url 'discounts:usage_report' %}"
+                        hx-trigger="change"
+                        hx-target="#main-content-area"
+                        hx-include="[name='date_to']"
+                        hx-push-url="true">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">{% trans "To" %}</label>
+                    <input type="date" name="date_to" value="{{ date_to }}"
+                        class="input w-full"
+                        hx-get="{% url 'discounts:usage_report' %}"
+                        hx-trigger="change"
+                        hx-target="#main-content-area"
+                        hx-include="[name='date_from']"
+                        hx-push-url="true">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Usage Table -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">{% trans "Usage History" %}</h3>
+        </div>
+        <div class="card-body p-0">
+            {% if usages %}
+            <div class="overflow-x-auto">
+                <table class="datatable-table w-full">
+                    <thead class="datatable-thead">
+                        <tr>
+                            <th class="datatable-th">{% trans "Date" %}</th>
+                            <th class="datatable-th">{% trans "Discount" %}</th>
+                            <th class="datatable-th">{% trans "Customer" %}</th>
+                            <th class="datatable-th text-right">{% trans "Original" %}</th>
+                            <th class="datatable-th text-right">{% trans "Savings" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="datatable-tbody">
+                        {% for usage in usages %}
+                        <tr class="datatable-tr">
+                            <td class="datatable-td">{{ usage.used_at|date:"d/m/Y H:i" }}</td>
+                            <td class="datatable-td">
+                                {% if usage.coupon %}
+                                    <span class="badge badge-sm">{% icon "ticket-outline" css_class="mr-1" %}{{ usage.coupon.code }}</span>
+                                {% elif usage.promotion %}
+                                    <span class="badge badge-sm color-warning">{% icon "megaphone-outline" css_class="mr-1" %}{{ usage.promotion.name }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="datatable-td">{% if usage.customer %}{{ usage.customer }}{% else %}-{% endif %}</td>
+                            <td class="datatable-td text-right">{{ usage.original_amount|floatformat:2 }}</td>
+                            <td class="datatable-td text-right text-success font-semibold">-{{ usage.amount_discounted|floatformat:2 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-12 text-base-content/60">
+                {% icon "analytics-outline" css_class="text-5xl block mx-auto mb-2" %}
+                <p class="mt-2">{% trans "No usage data found for this period" %}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -1,13 +1,12 @@
 from django.apps import AppConfig
+from django.utils.translation import gettext_lazy as _
 
 
 class DiscountsConfig(AppConfig):
-    """Django app configuration for Discounts module."""
-
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'discounts'
-    verbose_name = 'Discounts'
+    label = 'discounts'
+    verbose_name = _('Discounts')
 
     def ready(self):
-        """Module initialization."""
         pass
