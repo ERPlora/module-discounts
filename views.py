@@ -616,14 +616,14 @@ def api_validate_coupon(request):
     subtotal = Decimal(request.POST.get('subtotal', '0'))
 
     if not code:
-        return JsonResponse({'valid': False, 'message': 'Please enter a coupon code'})
+        return JsonResponse({'valid': False, 'message': _('Please enter a coupon code')})
 
     coupon = Coupon.objects.filter(
         hub_id=hub, code__iexact=code, is_deleted=False,
     ).first()
 
     if not coupon:
-        return JsonResponse({'valid': False, 'message': 'Invalid coupon code'})
+        return JsonResponse({'valid': False, 'message': _('Invalid coupon code')})
 
     can_use, message = coupon.can_use(order_total=subtotal)
     if not can_use:
@@ -669,7 +669,7 @@ def api_calculate_discounts(request):
     try:
         data = json.loads(request.body)
     except json.JSONDecodeError:
-        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+        return JsonResponse({'error': _('Invalid JSON')}, status=400)
 
     total = Decimal(str(data.get('total', '0')))
     coupon_code = data.get('coupon_code')

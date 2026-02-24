@@ -1,0 +1,512 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-24 23:58+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+msgid "Discounts"
+msgstr "Descuentos"
+
+msgid "SUMMER20"
+msgstr "SUMMER20"
+
+msgid "Coupon name"
+msgstr "Nombre del cupón"
+
+msgid "Promotion name"
+msgstr "Nombre de la promoción"
+
+msgid "0,1,2,3,4,5,6"
+msgstr "0,1,2,3,4,5,6"
+
+msgid "Condition value"
+msgstr "Valor de la condición"
+
+msgid "Percentage"
+msgstr "Porcentaje"
+
+msgid "Fixed Amount"
+msgstr "Importe fijo"
+
+msgid "Buy X Get Y"
+msgstr "Compra X Lleva Y"
+
+msgid "Entire Order"
+msgstr "Pedido completo"
+
+msgid "Specific Products"
+msgstr "Productos específicos"
+
+msgid "Specific Categories"
+msgstr "Categorías específicas"
+
+msgid "Comma-separated days (0=Mon, 6=Sun). Empty = all days"
+msgstr "Días separados por comas (0=Lun, 6=Dom). Vacío = todos los días"
+
+msgid "Minimum Quantity"
+msgstr "Cantidad mínima"
+
+msgid "Minimum Amount"
+msgstr "Importe mínimo"
+
+msgid "Customer Group"
+msgstr "Grupo de clientes"
+
+msgid "First Purchase Only"
+msgstr "Solo primera compra"
+
+msgid "Day of Week"
+msgstr "Día de la semana"
+
+msgid "Time of Day"
+msgstr "Hora del día"
+
+msgid "Condition value (JSON for complex conditions)"
+msgstr "Valor de la condición (JSON para condiciones complejas)"
+
+msgid "Overview"
+msgstr "Vista general"
+
+msgid "Promotions"
+msgstr "Promociones"
+
+msgid "Coupons"
+msgstr "Cupones"
+
+msgid "Settings"
+msgstr "Ajustes"
+
+msgid "Back to Coupons"
+msgstr "Volver a cupones"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Discount"
+msgstr "Descuento"
+
+msgid "BOGO"
+msgstr "BOGO"
+
+msgid "Uses"
+msgstr "Usos"
+
+msgid "Total Savings"
+msgstr "Ahorro total"
+
+msgid "Min. Purchase"
+msgstr "Compra mínima"
+
+msgid "Details"
+msgstr "Detalles"
+
+msgid "Scope"
+msgstr "Alcance"
+
+msgid "Valid From"
+msgstr "Válido desde"
+
+msgid "Valid Until"
+msgstr "Válido hasta"
+
+msgid "No expiration"
+msgstr "Sin expiración"
+
+msgid "Per Customer Limit"
+msgstr "Límite por cliente"
+
+msgid "Stackable"
+msgstr "Acumulable"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "Max Discount"
+msgstr "Descuento máximo"
+
+msgid "Conditions"
+msgstr "Condiciones"
+
+msgid "Include"
+msgstr "Incluir"
+
+msgid "Exclude"
+msgstr "Excluir"
+
+msgid "Recent Usage"
+msgstr "Uso reciente"
+
+msgid "Guest"
+msgstr "Invitado"
+
+msgid "Danger Zone"
+msgstr "Zona peligrosa"
+
+msgid "Delete Coupon"
+msgstr "Eliminar cupón"
+
+msgid "This action cannot be undone"
+msgstr "Esta acción no se puede deshacer"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid "Search coupons..."
+msgstr "Buscar cupones..."
+
+msgid "All Status"
+msgstr "Todos los estados"
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Inactive"
+msgstr "Inactivo"
+
+msgid "Add Coupon"
+msgstr "Añadir cupón"
+
+msgid "Export"
+msgstr "Exportar"
+
+msgid "Export as CSV"
+msgstr "Exportar como CSV"
+
+msgid "Export as Excel"
+msgstr "Exportar como Excel"
+
+msgid "Print"
+msgstr "Imprimir"
+
+msgid "selected"
+msgstr "seleccionado"
+
+msgid "Activate"
+msgstr "Activar"
+
+msgid "Deactivate"
+msgstr "Desactivar"
+
+msgid "Clear selection"
+msgstr "Limpiar selección"
+
+msgid "Are you sure you want to delete"
+msgstr "¿Estás seguro de que quieres eliminar"
+
+msgid "This action cannot be undone."
+msgstr "Esta acción no se puede deshacer."
+
+msgid "Code"
+msgstr "Código"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Value"
+msgstr "Valor"
+
+msgid "Usage"
+msgstr "Uso"
+
+msgid "Valid Period"
+msgstr "Período de validez"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "Fixed"
+msgstr "Fijo"
+
+msgid "View"
+msgstr "Ver"
+
+msgid "Show"
+msgstr "Mostrar"
+
+msgid "per page"
+msgstr "por página"
+
+#, python-format
+msgid "Showing %(start)s-%(end)s of %(total)s coupons"
+msgstr "Mostrando %(start)s-%(end)s de %(total)s cupones"
+
+msgid "No coupons found"
+msgstr "No se encontraron cupones"
+
+msgid "No coupons yet"
+msgstr "Sin cupones aún"
+
+msgid "Try a different search term or filter"
+msgstr "Prueba con otro término de búsqueda o filtro"
+
+msgid "Create your first coupon to get started"
+msgstr "Crea tu primer cupón para empezar"
+
+msgid "Add First Coupon"
+msgstr "Añadir primer cupón"
+
+msgid "New Coupon"
+msgstr "Nuevo cupón"
+
+msgid "SUMMER2026"
+msgstr "SUMMER2026"
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "Coupon description..."
+msgstr "Descripción del cupón..."
+
+msgid "Discount Type"
+msgstr "Tipo de descuento"
+
+msgid "Discount Value"
+msgstr "Valor del descuento"
+
+msgid "Leave empty for no limit"
+msgstr "Dejar vacío sin límite"
+
+msgid "Usage Limit"
+msgstr "Límite de uso"
+
+msgid "0 = unlimited"
+msgstr "0 = ilimitado"
+
+msgid "Usage Per Customer"
+msgstr "Uso por cliente"
+
+msgid "Priority"
+msgstr "Prioridad"
+
+msgid "Can be combined with other discounts"
+msgstr "Se puede combinar con otros descuentos"
+
+msgid "Create Coupon"
+msgstr "Crear cupón"
+
+msgid "Edit Coupon"
+msgstr "Editar cupón"
+
+msgid "Usage Stats"
+msgstr "Estadísticas de uso"
+
+msgid "Uses:"
+msgstr "Usos:"
+
+msgid "Savings:"
+msgstr "Ahorro:"
+
+msgid "Are you sure? This action cannot be undone."
+msgstr "¿Estás seguro? Esta acción no se puede deshacer."
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "New Promotion"
+msgstr "Nueva promoción"
+
+msgid "Promotion description..."
+msgstr "Descripción de la promoción..."
+
+msgid "Days of Week"
+msgstr "Días de la semana"
+
+msgid "e.g. Mon,Tue,Wed"
+msgstr "ej. Lun,Mar,Mié"
+
+msgid "Leave empty for every day"
+msgstr "Dejar vacío para todos los días"
+
+msgid "Start Time"
+msgstr "Hora de inicio"
+
+msgid "End Time"
+msgstr "Hora de fin"
+
+msgid "Create Promotion"
+msgstr "Crear promoción"
+
+msgid "Edit Promotion"
+msgstr "Editar promoción"
+
+msgid "Delete Promotion"
+msgstr "Eliminar promoción"
+
+msgid "Back to Promotions"
+msgstr "Volver a promociones"
+
+msgid "Starts"
+msgstr "Empieza"
+
+msgid "Ends"
+msgstr "Termina"
+
+msgid "Schedule"
+msgstr "Horario"
+
+msgid "Search promotions..."
+msgstr "Buscar promociones..."
+
+msgid "Add Promotion"
+msgstr "Añadir promoción"
+
+msgid "Period"
+msgstr "Período"
+
+#, python-format
+msgid "Showing %(start)s-%(end)s of %(total)s promotions"
+msgstr "Mostrando %(start)s-%(end)s de %(total)s promociones"
+
+msgid "No promotions found"
+msgstr "No se encontraron promociones"
+
+msgid "No promotions yet"
+msgstr "Sin promociones aún"
+
+msgid "Create your first promotion to get started"
+msgstr "Crea tu primera promoción para empezar"
+
+msgid "Add First Promotion"
+msgstr "Añadir primera promoción"
+
+msgid "Discounts module configuration"
+msgstr "Configuración del módulo de descuentos"
+
+msgid "Total Coupons"
+msgstr "Total de cupones"
+
+msgid "Active Coupons"
+msgstr "Cupones activos"
+
+msgid "Total Promotions"
+msgstr "Total de promociones"
+
+msgid "Active Promotions"
+msgstr "Promociones activas"
+
+msgid "Quick Actions"
+msgstr "Acciones rápidas"
+
+msgid "Create New Coupon"
+msgstr "Crear nuevo cupón"
+
+msgid "Add a new discount coupon code"
+msgstr "Añadir un nuevo código de cupón de descuento"
+
+msgid "Create New Promotion"
+msgstr "Crear nueva promoción"
+
+msgid "Add an automatic time-based promotion"
+msgstr "Añadir una promoción automática basada en tiempo"
+
+msgid "View Usage Report"
+msgstr "Ver informe de uso"
+
+msgid "See discount usage and savings data"
+msgstr "Ver datos de uso de descuentos y ahorro"
+
+msgid "Usage Report"
+msgstr "Informe de uso"
+
+msgid "Track discount usage and savings"
+msgstr "Seguimiento del uso de descuentos y ahorro"
+
+msgid "Total Uses"
+msgstr "Total de usos"
+
+msgid "From"
+msgstr "Desde"
+
+msgid "To"
+msgstr "Hasta"
+
+msgid "Usage History"
+msgstr "Historial de uso"
+
+msgid "Date"
+msgstr "Fecha"
+
+msgid "Customer"
+msgstr "Cliente"
+
+msgid "Original"
+msgstr "Original"
+
+msgid "Savings"
+msgstr "Ahorro"
+
+msgid "No usage data found for this period"
+msgstr "Sin datos de uso para este período"
+
+msgid "Usage Count"
+msgstr "Cantidad de usos"
+
+msgid "Coupon created successfully"
+msgstr "Cupón creado correctamente"
+
+msgid "Coupon updated successfully"
+msgstr "Cupón actualizado correctamente"
+
+msgid "Coupon deleted successfully"
+msgstr "Cupón eliminado correctamente"
+
+msgid "activated"
+msgstr "activado"
+
+msgid "deactivated"
+msgstr "desactivado"
+
+#, python-format
+msgid "Coupon %(status)s successfully"
+msgstr "Cupón %(status)s correctamente"
+
+msgid "Promotion created successfully"
+msgstr "Promoción creada correctamente"
+
+msgid "Promotion updated successfully"
+msgstr "Promoción actualizada correctamente"
+
+msgid "Promotion deleted successfully"
+msgstr "Promoción eliminada correctamente"
+
+#, python-format
+msgid "Promotion %(status)s successfully"
+msgstr "Promoción %(status)s correctamente"
+
+msgid "Please enter a coupon code"
+msgstr "Por favor, introduce un código de cupón"
+
+msgid "Invalid coupon code"
+msgstr "Código de cupón inválido"
+
+msgid "Invalid JSON"
+msgstr "JSON inválido"
