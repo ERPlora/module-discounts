@@ -86,4 +86,5 @@ PERMISSIONS = [
     "discounts.add_promotion",
     "discounts.change_promotion",
     "discounts.delete_promotion",
+    "discounts.manage_settings",
 ]
