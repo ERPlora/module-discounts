@@ -88,3 +88,24 @@ PERMISSIONS = [
     "discounts.delete_promotion",
     "discounts.manage_settings",
 ]
+
+ROLE_PERMISSIONS = {
+    "admin": ["*"],
+    "manager": [
+        "add_coupon",
+        "add_discount",
+        "add_promotion",
+        "change_coupon",
+        "change_discount",
+        "change_promotion",
+        "view_coupon",
+        "view_discount",
+        "view_promotion",
+    ],
+    "employee": [
+        "add_discount",
+        "view_coupon",
+        "view_discount",
+        "view_promotion",
+    ],
+}
