@@ -1,10 +1,8 @@
 {% load djicons i18n djicons djicons %}
 
 <div x-data="{
-    panelOpen: false,
     selectedIds: [],
     selectAll: false,
-    editUrl: '',
     deleteConfirm: false,
     deleteTarget: null,
     toggleSelect(id) {
@@ -19,14 +17,6 @@
         this.selectAll = !this.selectAll;
     },
     clearSelection() { this.selectedIds = []; this.selectAll = false; },
-    openPanel(url) {
-        this.editUrl = url;
-        htmx.ajax('GET', url, { target: '#coupon-panel-content', swap: 'innerHTML' });
-        this.panelOpen = true;
-    },
-    closePanel() {
-        this.panelOpen = false;
-    },
     confirmDelete() {
         if (this.deleteTarget) {
             htmx.ajax('POST', this.deleteTarget.url, {
@@ -71,7 +61,7 @@
             <div class="datatable-toolbar-end">
                 <!-- Add Coupon -->
                 <button class="btn btn-sm btn-circle color-primary"
-                        @click="openPanel('{% url 'discounts:coupon_create' %}')"
+                        hx-get="{% url 'discounts:coupon_create' %}" hx-target="#main-content-area" hx-push-url="true"
                         title="{% trans 'Add Coupon' %}">
                     {% icon "add-outline" %}
                 </button>
@@ -139,12 +129,6 @@
             {% include "discounts/partials/coupons_list.html" %}
         </div>
     </div>
-
-    <!-- Side Sheet -->
-    <div class="sheet-backdrop" :class="{ 'is-open': panelOpen }" @click.self="closePanel()">
-        <div class="side-sheet side-sheet-right" id="coupon-panel-content">
-            <!-- Content loaded via HTMX -->
-        </div>
     </div>
 
     <!-- Delete Confirmation Modal -->

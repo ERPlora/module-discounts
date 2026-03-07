@@ -61,7 +61,7 @@
                 </td>
                 <td class="datatable-td" data-label="{% trans 'Name' %}">
                     <span class="font-medium cursor-pointer"
-                          @click="openPanel('{% url 'discounts:coupon_edit' coupon_id=coupon.id %}')">
+                          hx-get="{% url 'discounts:coupon_edit' coupon_id=coupon.id %}" hx-target="#main-content-area" hx-push-url="true">
                         {{ coupon.name }}
                     </span>
                 </td>
@@ -109,7 +109,7 @@
                 <td class="datatable-td datatable-td-actions" onclick="event.stopPropagation();">
                     <div class="datatable-row-actions">
                         <button class="datatable-row-action"
-                                @click="openPanel('{% url 'discounts:coupon_edit' coupon_id=coupon.id %}')"
+                                hx-get="{% url 'discounts:coupon_edit' coupon_id=coupon.id %}" hx-target="#main-content-area" hx-push-url="true"
                                 title="{% trans 'Edit' %}">
                             {% icon "create-outline" %}
                         </button>
@@ -210,7 +210,7 @@
     </div>
     {% if not search_query and not status_filter %}
     <button class="btn color-primary mt-4"
-            @click="openPanel('{% url 'discounts:coupon_create' %}')">
+            hx-get="{% url 'discounts:coupon_create' %}" hx-target="#main-content-area" hx-push-url="true">
         {% icon "add-outline" %}
         {% trans "Add First Coupon" %}
     </button>

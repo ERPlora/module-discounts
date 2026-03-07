@@ -11,7 +11,7 @@ from decimal import Decimal
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.db.models import Q, Sum, Count
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render as django_render
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -306,13 +306,14 @@ def coupon_create(request):
         return _render_coupon_list(request, hub)
 
     # GET: render panel form
-    return django_render(request, 'discounts/partials/panel_coupon_add.html', {
+    return django_render(request, 'discounts/partials/coupon_add_content.html', {
         'discount_types': Coupon.DISCOUNT_TYPES,
         'scope_choices': Coupon.SCOPE_CHOICES,
     })
 
 
 @login_required
+@htmx_view('discounts/pages/coupon_edit.html', 'discounts/partials/coupon_edit_content.html')
 def coupon_edit(request, coupon_id):
     """Edit coupon -- renders side panel via HTMX."""
     hub = _hub_id(request)
@@ -324,11 +325,11 @@ def coupon_edit(request, coupon_id):
         return _render_coupon_list(request, hub)
 
     # GET: render panel form
-    return django_render(request, 'discounts/partials/panel_coupon_edit.html', {
+    return {
         'coupon': coupon,
         'discount_types': Coupon.DISCOUNT_TYPES,
         'scope_choices': Coupon.SCOPE_CHOICES,
-    })
+    }
 
 
 @login_required
@@ -481,13 +482,14 @@ def promotion_create(request):
         return _render_promotion_list(request, hub)
 
     # GET: render panel form
-    return django_render(request, 'discounts/partials/panel_promotion_add.html', {
+    return django_render(request, 'discounts/partials/promotion_add_content.html', {
         'discount_types': Promotion.DISCOUNT_TYPES,
         'scope_choices': Promotion.SCOPE_CHOICES,
     })
 
 
 @login_required
+@htmx_view('discounts/pages/promotion_edit.html', 'discounts/partials/promotion_edit_content.html')
 def promotion_edit(request, promotion_id):
     """Edit promotion -- renders side panel via HTMX."""
     hub = _hub_id(request)
@@ -499,11 +501,11 @@ def promotion_edit(request, promotion_id):
         return _render_promotion_list(request, hub)
 
     # GET: render panel form
-    return django_render(request, 'discounts/partials/panel_promotion_edit.html', {
+    return {
         'promotion': promotion,
         'discount_types': Promotion.DISCOUNT_TYPES,
         'scope_choices': Promotion.SCOPE_CHOICES,
-    })
+    }
 
 
 @login_required
