@@ -122,20 +122,20 @@
 
                 <!-- Stackable -->
                 <div>
-                <label class="checkbox checkbox-sm">
-                <input type="checkbox" name="stackable">
-                <span class="checkbox-mark"></span>
-                <span class="ml-2 text-sm font-medium">{% trans "Stackable" %}</span>
+                <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="stackable" class="checkbox-input">
+                <span class="checkbox-box"><svg class="checkbox-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <span class="text-sm font-medium">{% trans "Stackable" %}</span>
                 </label>
                 <span class="text-xs text-base-content/50 mt-1 block">{% trans "Can be combined with other discounts" %}</span>
                 </div>
 
                 <!-- Active -->
                 <div>
-                <label class="checkbox checkbox-sm">
-                <input type="checkbox" name="is_active" checked>
-                <span class="checkbox-mark"></span>
-                <span class="ml-2 text-sm font-medium">{% trans "Active" %}</span>
+                <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="is_active" checked class="checkbox-input">
+                <span class="checkbox-box"><svg class="checkbox-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                <span class="text-sm font-medium">{% trans "Active" %}</span>
                 </label>
                 </div>
             </div>
