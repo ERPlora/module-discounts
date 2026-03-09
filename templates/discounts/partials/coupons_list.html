@@ -8,11 +8,11 @@
         <thead class="datatable-thead">
             <tr>
                 <th class="datatable-th datatable-th-checkbox">
-                    <label class="checkbox-input">
-                        <input type="checkbox"
+                    <label class="checkbox checkbox-sm">
+                        <input type="checkbox" class="checkbox-input"
                                :checked="selectAll"
                                @click="toggleAll([{% for coupon in coupons %}'{{ coupon.id }}'{% if not forloop.last %},{% endif %}{% endfor %}])">
-                        <span class="checkbox-mark"></span>
+                        <span class="checkbox-box"><svg class="checkbox-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
                     </label>
                 </th>
                 <th class="cursor-pointer datatable-th datatable-th-sortable{% if sort_field == 'code' %} datatable-th-sorted{% if sort_dir == 'desc' %} datatable-th-sorted-desc{% endif %}{% endif %}"
@@ -49,11 +49,11 @@
                 data-id="{{ coupon.id }}"
                 :class="{ 'datatable-tr-selected': selectedIds.includes('{{ coupon.id }}') }">
                 <td class="datatable-td datatable-td-checkbox" onclick="event.stopPropagation();">
-                    <label class="checkbox-input">
-                        <input type="checkbox"
+                    <label class="checkbox checkbox-sm">
+                        <input type="checkbox" class="checkbox-input"
                                :checked="selectedIds.includes('{{ coupon.id }}')"
                                @click="toggleSelect('{{ coupon.id }}')">
-                        <span class="checkbox-mark"></span>
+                        <span class="checkbox-box"><svg class="checkbox-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
                     </label>
                 </td>
                 <td class="datatable-td" data-label="{% trans 'Code' %}">
@@ -138,6 +138,7 @@
     <div class="datatable-per-page">
         {% trans "Show" %}
         <select name="per_page"
+                class="select select-sm"
                 hx-get="{% url 'discounts:coupon_list' %}"
                 hx-target="#datatable-body"
                 hx-include="#coupons-datatable"

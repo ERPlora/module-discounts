@@ -122,9 +122,9 @@
 
             <!-- Stackable -->
             <div>
-                <label class="checkbox-input">
-                    <input type="checkbox" name="stackable" {% if promotion.stackable %}checked{% endif %}>
-                    <span class="checkbox-mark"></span>
+                <label class="checkbox checkbox-sm">
+                    <input type="checkbox" class="checkbox-input" name="stackable" {% if promotion.stackable %}checked{% endif %}>
+                    <span class="checkbox-box"><svg class="checkbox-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
                     <span class="ml-2 text-sm font-medium">{% trans "Stackable" %}</span>
                 </label>
                 <span class="text-xs text-base-content/50 mt-1 block">{% trans "Can be combined with other discounts" %}</span>
@@ -132,9 +132,9 @@
 
             <!-- Active -->
             <div>
-                <label class="checkbox-input">
-                    <input type="checkbox" name="is_active" {% if promotion.is_active %}checked{% endif %}>
-                    <span class="checkbox-mark"></span>
+                <label class="checkbox checkbox-sm">
+                    <input type="checkbox" class="checkbox-input" name="is_active" {% if promotion.is_active %}checked{% endif %}>
+                    <span class="checkbox-box"><svg class="checkbox-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
                     <span class="ml-2 text-sm font-medium">{% trans "Active" %}</span>
                 </label>
             </div>
