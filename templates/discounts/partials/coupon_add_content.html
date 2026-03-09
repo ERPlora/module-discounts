@@ -21,7 +21,7 @@
 
     <!-- Form -->
     <form id="add-coupon-form"
-          hx-post="{% url 'discounts:coupon_create' %}" class="max-w-2xl">
+          hx-post="{% url 'discounts:coupon_create' %}">
         {% csrf_token %}
         <div class="card mb-4">
             <div class="card-body flex flex-col gap-4">
