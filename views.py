@@ -31,7 +31,7 @@ from .models import (
 # Constants
 # ---------------------------------------------------------------------------
 
-PER_PAGE_CHOICES = [10, 25, 50, 100]
+PER_PAGE_CHOICES = [12, 24, 48, 96, 0]
 
 COUPON_SORT_FIELDS = {
     'code': 'code',
@@ -193,9 +193,9 @@ def coupon_list(request):
     sort_dir = request.GET.get('dir', 'desc')
     status_filter = request.GET.get('status', '')
     page_number = request.GET.get('page', 1)
-    per_page = int(request.GET.get('per_page', 10))
+    per_page = int(request.GET.get('per_page', 12))
     if per_page not in PER_PAGE_CHOICES:
-        per_page = 10
+        per_page = 12
 
     coupons = Coupon.objects.filter(hub_id=hub, is_deleted=False)
 
@@ -253,7 +253,7 @@ def coupon_list(request):
         )
 
     # Pagination
-    paginator = Paginator(coupons, per_page)
+    paginator = Paginator(coupons, per_page if per_page > 0 else max(coupons.count(), 1))
     page_obj = paginator.get_page(page_number)
 
     context = {
@@ -373,9 +373,9 @@ def promotion_list(request):
     sort_dir = request.GET.get('dir', 'asc')
     status_filter = request.GET.get('status', '')
     page_number = request.GET.get('page', 1)
-    per_page = int(request.GET.get('per_page', 10))
+    per_page = int(request.GET.get('per_page', 12))
     if per_page not in PER_PAGE_CHOICES:
-        per_page = 10
+        per_page = 12
 
     promotions = Promotion.objects.filter(hub_id=hub, is_deleted=False)
 
@@ -433,7 +433,7 @@ def promotion_list(request):
         )
 
     # Pagination
-    paginator = Paginator(promotions, per_page)
+    paginator = Paginator(promotions, per_page if per_page > 0 else max(promotions.count(), 1))
     page_obj = paginator.get_page(page_number)
 
     context = {
