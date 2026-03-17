@@ -119,3 +119,147 @@ class ListPromotions(AssistantTool):
                 for p in qs[:20]
             ]
         }
+
+
+@register_tool
+class UpdateDiscount(AssistantTool):
+    name = "update_discount"
+    description = "Update an existing coupon's fields."
+    module_id = "discounts"
+    required_permission = "discounts.change_coupon"
+    requires_confirmation = True
+    parameters = {
+        "type": "object",
+        "properties": {
+            "coupon_id": {"type": "string", "description": "Coupon ID"},
+            "name": {"type": "string"},
+            "description": {"type": "string"},
+            "discount_type": {"type": "string", "description": "percentage, fixed, buy_x_get_y"},
+            "discount_value": {"type": "string"},
+            "scope": {"type": "string", "description": "order, products, categories"},
+            "min_purchase": {"type": "string"},
+            "max_discount": {"type": "string"},
+            "usage_limit": {"type": "integer"},
+            "usage_per_customer": {"type": "integer"},
+            "valid_from": {"type": "string", "description": "Datetime (YYYY-MM-DD or YYYY-MM-DD HH:MM)"},
+            "valid_until": {"type": "string", "description": "Datetime (YYYY-MM-DD or YYYY-MM-DD HH:MM)"},
+            "priority": {"type": "integer"},
+            "stackable": {"type": "boolean"},
+            "is_active": {"type": "boolean"},
+        },
+        "required": ["coupon_id"],
+        "additionalProperties": False,
+    }
+
+    def execute(self, args, request):
+        from decimal import Decimal
+        from discounts.models import Coupon
+        try:
+            c = Coupon.objects.get(id=args['coupon_id'])
+        except Coupon.DoesNotExist:
+            return {"error": f"Coupon {args['coupon_id']} not found"}
+        fields = ['updated_at']
+        for field in ('name', 'description', 'discount_type', 'scope'):
+            if field in args:
+                setattr(c, field, args[field])
+                fields.append(field)
+        for dec_field in ('discount_value', 'min_purchase', 'max_discount'):
+            if dec_field in args:
+                setattr(c, dec_field, Decimal(args[dec_field]) if args[dec_field] else None)
+                fields.append(dec_field)
+        for int_field in ('usage_limit', 'usage_per_customer', 'priority'):
+            if int_field in args:
+                setattr(c, int_field, args[int_field])
+                fields.append(int_field)
+        for bool_field in ('stackable', 'is_active'):
+            if bool_field in args:
+                setattr(c, bool_field, args[bool_field])
+                fields.append(bool_field)
+        for dt_field in ('valid_from', 'valid_until'):
+            if dt_field in args:
+                setattr(c, dt_field, args[dt_field])
+                fields.append(dt_field)
+        c.save(update_fields=fields)
+        return {"id": str(c.id), "code": c.code, "updated": True}
+
+
+@register_tool
+class DeleteDiscount(AssistantTool):
+    name = "delete_discount"
+    description = "Delete a coupon by ID."
+    module_id = "discounts"
+    required_permission = "discounts.change_coupon"
+    requires_confirmation = True
+    parameters = {
+        "type": "object",
+        "properties": {
+            "coupon_id": {"type": "string", "description": "Coupon ID"},
+        },
+        "required": ["coupon_id"],
+        "additionalProperties": False,
+    }
+
+    def execute(self, args, request):
+        from discounts.models import Coupon
+        try:
+            c = Coupon.objects.get(id=args['coupon_id'])
+            code = c.code
+            c.delete()
+            return {"deleted": True, "code": code}
+        except Coupon.DoesNotExist:
+            return {"error": f"Coupon {args['coupon_id']} not found"}
+
+
+@register_tool
+class BulkCreateDiscounts(AssistantTool):
+    name = "bulk_create_discounts"
+    description = "Create multiple discount coupons at once (max 50)."
+    module_id = "discounts"
+    required_permission = "discounts.change_coupon"
+    requires_confirmation = True
+    parameters = {
+        "type": "object",
+        "properties": {
+            "coupons": {
+                "type": "array",
+                "description": "List of coupons to create (max 50)",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "code": {"type": "string"},
+                        "name": {"type": "string"},
+                        "discount_type": {"type": "string", "description": "percentage, fixed, buy_x_get_y"},
+                        "discount_value": {"type": "string"},
+                        "usage_limit": {"type": "integer"},
+                        "valid_from": {"type": "string"},
+                        "valid_until": {"type": "string"},
+                        "min_purchase": {"type": "string"},
+                    },
+                    "required": ["code", "name", "discount_type", "discount_value"],
+                    "additionalProperties": False,
+                },
+                "maxItems": 50,
+            },
+        },
+        "required": ["coupons"],
+        "additionalProperties": False,
+    }
+
+    def execute(self, args, request):
+        from decimal import Decimal
+        from discounts.models import Coupon
+        created = []
+        for item in args['coupons'][:50]:
+            c = Coupon.objects.create(
+                code=item['code'].upper(),
+                name=item['name'],
+                discount_type=item['discount_type'],
+                discount_value=Decimal(item['discount_value']),
+                usage_limit=item.get('usage_limit'),
+                valid_from=item.get('valid_from'),
+                valid_until=item.get('valid_until'),
+                min_purchase=Decimal(item['min_purchase']) if item.get('min_purchase') else Decimal('0.00'),
+                is_active=True,
+            )
+            created.append({"id": str(c.id), "code": c.code})
+        return {"created": created, "count": len(created)}
