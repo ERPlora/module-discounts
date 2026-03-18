@@ -10,8 +10,8 @@ from django.utils.translation import gettext_lazy as _
 # Module Identification
 MODULE_ID = "discounts"
 MODULE_NAME = _("Discounts")
-MODULE_ICON = "pricetag-outline"
-MODULE_VERSION = "1.0.0"
+MODULE_ICON = 'material:sell'
+MODULE_VERSION = '1.0.1'
 MODULE_CATEGORY = "sales"
 
 # Target Industries (business verticals this module is designed for)
