@@ -11,7 +11,9 @@ from django.utils.translation import gettext_lazy as _
 MODULE_ID = "discounts"
 MODULE_NAME = _("Discounts")
 MODULE_ICON = 'material:sell'
-MODULE_VERSION = '1.0.1'
+MODULE_VERSION = '1.0.2'
+MODULE_DESCRIPTION = _('Discount rules, promotions, and automatic price adjustments')
+MODULE_AUTHOR = 'ERPlora'
 MODULE_CATEGORY = "sales"
 
 # Target Industries (business verticals this module is designed for)
