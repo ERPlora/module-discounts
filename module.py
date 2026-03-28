@@ -15,6 +15,7 @@ MODULE_VERSION = '1.0.2'
 MODULE_DESCRIPTION = _('Discount rules, promotions, and automatic price adjustments')
 MODULE_AUTHOR = 'ERPlora'
 MODULE_CATEGORY = "sales"
+HAS_MODELS = True
 
 # Target Industries (business verticals this module is designed for)
 MODULE_INDUSTRIES = [
