@@ -10,7 +10,7 @@ from decimal import Decimal
 
 from django.core.paginator import Paginator
 from django.contrib import messages
-from django.db.models import Q, Sum, Count
+from django.db.models import Q, Sum, Count, F
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render as django_render
 from django.utils import timezone
@@ -762,16 +762,30 @@ def api_apply_discount(request):
 @htmx_view('discounts/pages/settings.html', 'discounts/partials/settings_content.html')
 def settings_view(request):
     hub = _hub_id(request)
-    total_coupons = Coupon.objects.filter(hub_id=hub, is_deleted=False).count()
-    active_coupons = sum(
-        1 for c in Coupon.objects.filter(hub_id=hub, is_deleted=False)
-        if c.status == 'active'
+    now = timezone.now()
+    coupon_qs = Coupon.objects.filter(hub_id=hub, is_deleted=False)
+    coupon_agg = coupon_qs.aggregate(
+        total=Count('id'),
+        active=Count('id', filter=Q(
+            is_active=True,
+            valid_from__lte=now,
+        ) & (Q(valid_until__isnull=True) | Q(valid_until__gte=now))
+          & (Q(usage_limit__isnull=True) | Q(usage_limit=0) | Q(usage_count__lt=F('usage_limit')))),
     )
-    total_promotions = Promotion.objects.filter(hub_id=hub, is_deleted=False).count()
-    active_promotions = sum(
-        1 for p in Promotion.objects.filter(hub_id=hub, is_deleted=False)
-        if p.status == 'active'
+    total_coupons = coupon_agg['total']
+    active_coupons = coupon_agg['active']
+
+    promo_qs = Promotion.objects.filter(hub_id=hub, is_deleted=False)
+    promo_agg = promo_qs.aggregate(
+        total=Count('id'),
+        active=Count('id', filter=Q(
+            is_active=True,
+            valid_from__lte=now,
+            valid_until__gte=now,
+        )),
     )
+    total_promotions = promo_agg['total']
+    active_promotions = promo_agg['active']
 
     return {
         'total_coupons': total_coupons,
